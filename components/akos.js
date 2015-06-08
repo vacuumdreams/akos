@@ -423,6 +423,7 @@
 							$(selectors.container).fadeOut().delay(350).queue(function(){
 								$(this).html('').show().dequeue();
 								addItemToPage(current.id, separate(current.item), selectors.template.quizItem);
+								$(selectors.quiz.answer).focus();
 							});
 						} else {
 							$(selectors.container).fadeOut().delay(350).queue(function(){
