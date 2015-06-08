@@ -624,6 +624,7 @@ body:not(.quiz-started) .quiz-score,
 .quiz-started .quiz-start {
   opacity: 0;
   position: absolute;
+  z-index: -1;
 }
 
 .quiz-started .quiz-start {
