@@ -1,0 +1,81 @@
+<html>
+
+<head>
+	<title>Akos - hazi-kvizelos</title>
+	<link href='http://fonts.googleapis.com/css?family=Oswald:400,700,300' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" type="text/css" href="components/style.css">
+</head>
+
+<body>
+
+	<header class="header">
+		<h1 class="header-title">Questions &amp; Answers</h1>
+		<button class="quiz-start quiz-disabled">Start Quiz</button>
+		<button class="quiz-stop">Stop Quiz</button>
+
+		<div class="header-extras">
+			<div class="header-add">
+				<button class="modal-open" data-trigger=".add-item"><i class="icon-add"></i></button>
+			</div>
+			<div class="quiz-score">
+				<span class="quiz-score-points"></span> / <span class="quiz-score-all"></span>
+			</div>
+			<div class="quiz-progress"></div>
+		</div>
+	</header>
+
+	<section class="section questions">
+
+		<header class="questions-header">
+			<h4 class="questions-header-default">Currently available questions and answers:</h4>
+			<h4 class="questinos-header-noitems">You have no question / answer pairs saved yet. Use the form below to add some new ones.</h4>
+		</header>
+
+		<div class="questions-content clearfix">
+
+		</div>
+
+	</section>
+
+	<section class="section add-item modal">
+		<div class="modal-wrap">
+		<header class="add-header">
+				<h4 class="add-title">Add new question + answer</h4>
+			</header>
+
+			<form class="add">
+				<input class="add-question-input" id="add-question" type="text" placeholder="Question">
+				<input class="add-answer-input" id="add-answer" type="text" placeholder="Answer">
+				<div class="button-wrap">
+					<button class="add-btn">Save</button>
+					<button class="modal-close">Close</button>
+					<div class="add-message-saved"><i class="icon-success"></i></div>
+				</div>
+			</form>
+		</div>
+
+	</section>
+
+	<div class="delete-confirm modal">
+		<div class="modal-wrap">
+			<h4 class="delete-confirm-message">Sure?</h4>
+			<button class="delete-confirm-approve">Delete</button>
+			<button class="delete-confirm-cancel modal-close">Cancel</button>
+		</div>
+	</div>
+</body>
+
+<script type="text/javascript" src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="components/akos.js"></script>
+<script type="text/javascript">
+
+(function($, window){
+
+	var akos = new Akos();
+	akos.start();
+
+})(jQuery, window);
+
+</script>
+
+</html>
