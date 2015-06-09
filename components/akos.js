@@ -435,8 +435,6 @@
 					stopQuiz = function (e) {
 						if (e) { e.preventDefault(); }
 
-						console.log(this);
-
 						$('body').removeClass(selectors.quiz.startedClass);
 
 						$(selectors.container).fadeOut().delay(350).queue(function(){
