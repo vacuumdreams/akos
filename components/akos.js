@@ -129,7 +129,7 @@
 						newId = 0;
 
 					for (var i = 0; i < this.getSize(); i++) {
-						current = localStorage.key(i);
+						current = parseInt(localStorage.key(i));
 						newId = (newId >= current) ? newId : current;
 					}
 					return (newId + 1);				
@@ -443,7 +443,6 @@
 					};
 
 				e.preventDefault();
-				console.log(items);
 
 				if ($button.hasClass(selectors.quiz.disabledClass) || items.length === 0) {
 					return;
