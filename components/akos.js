@@ -101,37 +101,37 @@
 			selectors = (!selectors) ? this.defaults.selectors : selectors,
 
 			storage = {
-				getItems: function (callback) {
+				getItems: function (callback, onlyEnabled) {
 					var items = [],
-						current;
-					$.each(localStorage, function(i, item) {
-						current = {id: i, item: item};
-						items.push(current);
-						if (typeof callback === 'function') {
-							callback(i, item);
+						item,
+						id,
+						isEnabled = function (item) {
+							return (onlyEnabled) ? (item.charAt(0) === '1') : true;
+						};
+
+					for (var i = 0; i < this.getSize(); i++) {
+						id = localStorage.key(i);
+						item = this.get(id);
+						if (id && item && isEnabled(item)) {
+							items.push({id: id, item: item});
+							if (typeof callback === 'function') {
+								callback(id, item);
+							}
 						}
-					});
+					}
+
 					return items;
 				},
-				getItemsEnabled: function () {
-					var items = [],
-						current;
-					$.each(localStorage, function(i, item) {
-						if (item.charAt(0) === '1') {
-							current = {id: i, item: item};
-							items.push(current);
-						}
-					});
-					return items;						
-				},
+
 				getNewId: function () {
 					var items = [],
 						current = 0,
 						newId = 0;
-					$.each(localStorage, function(i, item) {
-						current = parseInt(i);
+
+					for (var i = 0; i < this.getSize(); i++) {
+						current = localStorage.key(i);
 						newId = (newId >= current) ? newId : current;
-					});
+					}
 					return (newId + 1);				
 				},
 				getSize: function () {
@@ -149,9 +149,7 @@
 			},
 
 			getItems = function () {
-				var size = storage.getSize();
-
-				if (size > 0) {
+				if (storage.getSize() > 0) {
 					storage.getItems(publishItem);
 					enableQuiz();
 				} else {
@@ -261,7 +259,7 @@
 				addItemToPage(id, {status: state, question: question, answer: answer});
 				$form.addClass(selectors.addForm.actionClass);
 
-				$q.val('');
+				$q.val('').focus();
 				$a.val('');
 
 				if (storage.getSize() === 1) {
@@ -360,7 +358,7 @@
 			launchQuiz = function (e) {
 
 				var $button = $(this),
-					items = storage.getItemsEnabled(),
+					items = storage.getItems(false, true),
 					all = items.length,
 					counter = 0,
 					points = 0,
@@ -445,8 +443,9 @@
 					};
 
 				e.preventDefault();
+				console.log(items);
 
-				if ($button.hasClass(selectors.quiz.disabledClass)) {
+				if ($button.hasClass(selectors.quiz.disabledClass) || items.length === 0) {
 					return;
 				}
 
